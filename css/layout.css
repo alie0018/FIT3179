@@ -1,0 +1,12 @@
+html,
+body { 
+  font-family: Arial, sans-serif; 
+}
+
+.description { 
+  margin-top: 20px; font-size: 16px; 
+}
+
+h2 { 
+  color: #333; 
+}

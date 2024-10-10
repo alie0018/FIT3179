@@ -4,41 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Australia Labour Force Visualization</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    
 </head>
 <body>
     <h1>Australia Labour Force Visualization</h1>
-    <div id="vis"></div>
-
-    <div id="multi_line_chart"></div>
-
-    <script type="text/javascript">
-        var data_location = "data/Unemployment_rate.csv"
-
-        var spec1 = "js/multi_line_chart.vg.json"
-
-        vegaEmbed('#multi_line_chart', spec1).then(function(result) {
-            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-        }).catch(console.error);
-    </script>
     
-    <h1>map</h1>
-    <div id="vis"></div>
+    <div class="description">
+        <p>
+            This interactive web page presents various visualizations reflecting trends and patterns in the Australian labour force. 
+            Below you will find detailed maps and charts that illustrate the employment landscape across different states and territories.
+        </p>
+    </div>
 
+    <h2>Employment Trends by State</h2>
     <div id="choropleth_map"></div>
-
+    <div class="description">
+        <p>
+            The map above displays the number of employed people in each Australian state as of January 2024. 
+            This choropleth map helps to visually compare employment levels across regions, highlighting areas with higher or lower employment rates. 
+            Navigate over each state to see specific employment data.
+        </p>
+    </div>
+    
     <script type="text/javascript">
-        var data_location = "data/cleaned/January_2024.csv"
-
-        var spec1 = "js/choropleth_map.vg.json"
-
-        vegaEmbed('#choropleth_map', spec1).then(function(result) {
+        var spec = "js/choropleth_map.vg.json";
+        vegaEmbed('#choropleth_map', spec).then(function(result) {
             // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
         }).catch(console.error);
     </script>
+
+    <h2>Monthly Unemployment Trends</h2>
+    <div id="multi_line_chart"></div>
+    <div class="description">
+        <p>
+            This line chart shows the trends in unemployment rates from 1966 to the latest available data in 2024. 
+            It tracks changes in unemployment rates across Australia, providing insights into economic cycles and job market dynamics.
+        </p>
+    </div>
     
+    <script type="text/javascript">
+        var spec = "js/multi_line_chart.vg.json"
+        vegaEmbed('#multi_line_chart', spec).then(function(result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+        }).catch(console.error);
+    </script>
     
 </body>
 </html>
