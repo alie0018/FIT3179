@@ -23,7 +23,22 @@
             // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
         }).catch(console.error);
     </script>
+    
+    <h1>map</h1>
+    <div id="vis"></div>
 
+    <div id="choropleth_map"></div>
+
+    <script type="text/javascript">
+        var data_location = "data/cleaned/January_2024.csv"
+
+        var spec1 = "js/choropleth_map.vg.json"
+
+        vegaEmbed('#choropleth_map', spec1).then(function(result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+        }).catch(console.error);
+    </script>
+    
     
 </body>
 </html>

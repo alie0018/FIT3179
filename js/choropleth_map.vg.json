@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Employment Trends in Australian States (January 2024)",
+  "width": 800,
+  "height": 400,
+  "projection": {"type": "mercator"},
+  "data": {
+    "url": "js/au-states.topojson",
+    "format": {
+      "type": "topojson",
+      "feature": "states"
+    }
+  },
+  "transform": [
+    {
+      "lookup": "properties.STATE_NAME",
+      "from": {
+        "data": {
+          "url": "data/cleaned/January_2024.csv"
+        },
+        "key": "State",
+        "fields": ["Employed_People"]
+      }
+    },
+    {
+      "calculate": "isValid(datum.Employed_People) ? +datum.Employed_People : 0", 
+      "as": "Employed_People"
+    }
+  ],
+  "mark": {"type": "geoshape"},
+  "encoding": {
+    "color": {
+      "field": "Employed_People",
+      "type": "quantitative",
+      "scale": {"type": "linear"},
+      "legend": {
+        "title": "Number of Employed People"
+      }
+    },
+    "tooltip": [
+      {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
+      {"field": "Employed_People", "type": "quantitative", "title": "Employed People"}
+    ]
+  }
+}
