@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia Labour Force Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+    <h1>Australia Labour Force Visualization</h1>
+    <div id="vis"></div>
+
+    <div id="multi_line_chart"></div>
+
+    <script type="text/javascript">
+        var data_location = "data/Unemployment_rate.csv"
+
+        var spec1 = "js/multi_line_chart.vg.json"
+
+        vegaEmbed('#multi_line_chart', spec1).then(function(result) {
+            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+        }).catch(console.error);
+    </script>
+
+    
+</body>
+</html>

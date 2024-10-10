@@ -1,0 +1,63 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "data/Unemployment_rate.csv"},
+  "width": 800,
+  "height": 400,
+  "transform": [
+    {
+      "fold": ["Persons (%)", "Males (%)", "Females (%)"],
+      "as": ["Demographic", "UnemploymentRate"]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "temporal",
+      "axis": {"title": "Date"}
+    },
+    "y": {
+      "field": "UnemploymentRate",
+      "type": "quantitative",
+      "axis": {"title": "Unemployment Rate (%)"}
+    },
+    "color": {
+      "field": "Demographic",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Persons (%)", "Males (%)", "Females (%)"],
+        "range": ["steelblue", "firebrick", "green"]
+      },
+      "legend": {
+        "title": "Demographic"
+      }
+    },
+    "tooltip": [
+      {"field": "date", "type": "temporal", "title": "Date"},
+      {"field": "UnemploymentRate", "type": "quantitative", "title": "Unemployment Rate"},
+      {"field": "Demographic", "type": "nominal", "title": "Demographic"}
+    ]
+  },
+  "layer": [
+    {
+      "mark": "line",
+      "selection": {
+        "highlight": {"type": "single", "on": "mouseover", "empty": "none"}
+      },
+      "encoding": {
+        "opacity": {
+          "condition": {"selection": "highlight", "value": 1},
+          "value": 0.5
+        }
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true},
+      "encoding": {
+        "opacity": {
+          "condition": {"selection": "highlight", "value": 1},
+          "value": 0
+        }
+      }
+    }
+  ]
+}
