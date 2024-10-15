@@ -1,59 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Australia Labour Force Visualization</title>
+    <title>Australian Labour Force Visualisation</title>
+    <!-- External CSS for styling -->
+    <link rel="stylesheet" href="css/layout.css">
 
-    <link rel="stylesheet" href="css/style.css">
-
+    <!-- Vega and Vega-Lite scripts for embedding charts -->
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-    
 </head>
+
 <body>
-    <h1>AUSTRALIA LABOUR FORCE</h1>
-    
-    <div class="description">
-        <p>
-            This interactive web page presents various visualizations reflecting trends and patterns in the Australian labour force. 
-            Below you will find detailed maps and charts that illustrate the employment landscape across different states and territories.
-        </p>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>AUSTRALIAN LABOUR FORCE VISUALISATION</h1>
+        <h2>How do employment and unemployment trends impact Australian industries and regions?</h2>
     </div>
 
-    <h2>Employment Trends by State</h2>
-    <div id="choropleth_map"></div>
-    <div class="description">
-        <p>
-            The map above displays the number of employed people in each Australian state as of January 2024. 
-            This choropleth map helps to visually compare employment levels across regions, highlighting areas with higher or lower employment rates. 
-            Navigate over each state to see specific employment data.
-        </p>
+    <div class="container">
+        <div>
+            <p>
+                This set of visualisations provides a comprehensive overview of the Australian labor market, focusing on
+                employment trends, gender distribution, industry analysis, and yearly changes in workforce
+                participation. By leveraging various data visualization idioms, the insights presented here allow
+                policymakers, researchers, and the general public to understand key labor market dynamics in Australia.
+            </p>
+            <p>
+                The visualisations reveal patterns in gender distribution, industry-specific trends, employment growth
+                over time, and how different regions contribute to the overall labor market. By combining data from
+                various sources, this set of visualisations helps us understand the dynamics between economic policies,
+                industry changes, and workforce participation. These insights are crucial for identifying workforce
+                challenges, gender participation, and the impact of economic events on employment.
+            </p>
+        </div>
+
+        <!-- Line Trend -->
+        <div class="section">
+            <h2>Historical Employment and Unemployment Trends in Australia by Gender (1966-2001)</h2>
+            <div class="chart" id="line_chart"></div>
+            <div class="annotation">
+                <p><strong>Unemployment spike in 1982:</strong> Caused by the global recession and stagflation.
+                    Employment rose post-1983 as recovery policies were implemented.</p>
+            </div>
+            <div class="description">
+                <p>
+                    This visualization shows employment and unemployment trends from 1966 to 2001, segmented by gender.
+                    <strong>Key Insight:</strong> Female employment rises consistently over the period, while male
+                    unemployment experiences significant spikes, especially in the late 1970s and early 1980s.
+                    <strong>Policy Impact:</strong> Economic recovery policies post-1983 led to increases in employment,
+                    especially for women. This visualization provides a decade-spanning comparison between genders,
+                    offering valuable insights into the changing dynamics of the labor force over time.
+                </p>
+            </div>
+        </div>
+
+        <!-- Employment Trends Map Section -->
+        <div class="section">
+            <h2>Employment Trends Across Australian States (January 2024)</h2>
+            <div class="chart" id="choropleth_map"></div>
+            <div class="description">
+                <p>
+                    This choropleth map shows employment levels across Australia's states in January 2024.
+                    <strong>Key Insight:</strong> Employment is concentrated in <strong>New South Wales</strong> and
+                    <strong>Victoria</strong>, which have the highest population and economic activity, while states
+                    like <strong>Tasmania</strong> and <strong>Northern Territory</strong> show significantly lower
+                    employment.
+                    <strong>Regional Influence:</strong> These differences are driven by factors such as regional
+                    economic activities, industry presence (e.g., mining in Western Australia), and population density.
+                </p>
+            </div>
+        </div>
+
+        <!-- Workforce Distribution by Median Weekly Earnings Section -->
+        <div class="section">
+            <h2>Workforce Distribution by Median Weekly Earnings and Workforce Share</h2>
+            <div class="chart" id="bubble_chart"></div>
+            <div class="description">
+                <p>
+                    This bubble chart visualizes the relationship between <strong>median weekly earnings</strong> and
+                    <strong>workforce share</strong> across various industries.
+                    <strong>Key Insight:</strong> Higher-paying industries like <strong>Mining</strong> and
+                    <strong>Financial Services</strong> employ fewer people, while industries with a larger workforce,
+                    such as <strong>Retail</strong> and <strong>Healthcare</strong>, tend to have lower average weekly
+                    earnings.
+                    <strong>Sectoral Trends:</strong> This reflects broader economic trends, where capital-intensive
+                    industries (e.g., mining) are highly productive but employ fewer people compared to labor-intensive
+                    industries like retail.
+                </p>
+            </div>
+        </div>
+
+        <!-- Industry Comparison: Female vs Male Share Section -->
+        <div class="section">
+            <h2>Industry Comparison: Gender Distribution and Median Age Across Australian Industries</h2>
+
+            <!-- Container for the chart and description side by side -->
+            <div class="flex-container">
+
+                <!-- The chart goes on the left -->
+                <div class="chart" id="stacked_bar_chart"></div>
+
+                <!-- The description goes on the right -->
+                <div class="description">
+                    <p>
+                        This stacked bar chart compares <strong>female</strong> and <strong>male</strong> participation
+                        across various industries in Australia.
+                        <strong>Key Insight:</strong> Industries such as <strong>Health Care and Social
+                            Assistance</strong> are dominated by women, while <strong>Construction</strong> and
+                        <strong>Mining</strong> are predominantly male-dominated.
+                        <strong>Median Age:</strong> Younger industries (e.g., <strong>Retail</strong> and
+                        <strong>Hospitality</strong>) often have a higher share of part-time workers, and sectors with
+                        older median ages reflect more stable, full-time employment.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Hours Worked and Yearly Change Section -->
+        <div class="section">
+            <h2>Hours Worked and Yearly Change (2024)</h2>
+            <div class="chart" style="margin: 0 auto; text-align: center;" id="dual_y_axis"></div>
+            <div class="description">
+                <p>
+                    This visualization tracks the total number of hours worked and the yearly change in hours worked
+                    during 2024.
+                    <strong>Key Insight:</strong> Fluctuations in total hours worked often correspond to seasonal
+                    employment changes or major economic events.
+                    <strong>Short-Term vs. Long-Term Trends:</strong> Short-term dips might be caused by temporary
+                    shocks (e.g., the holiday season), while the overall upward trend reflects a growing economy and
+                    increasing labor force participation.
+                </p>
+            </div>
+        </div>
+
     </div>
-    
+
+    <!-- Embedding Vega-Lite charts -->
     <script type="text/javascript">
-        var spec = "js/choropleth_map.vg.json";
-        vegaEmbed('#choropleth_map', spec).then(function(result) {
-            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-        }).catch(console.error);
+        // Employment Trends Map
+        vegaEmbed('#line_chart', 'js/line_chart.vg.json').catch(console.error);
+
+        // Employment Trends Map
+        vegaEmbed('#choropleth_map', 'js/choropleth_map.vg.json').catch(console.error);
+
+        // Industry Comparison Chart
+        vegaEmbed('#stacked_bar_chart', 'js/stacked_bar_chart.vg.json').catch(console.error);
+
+        // Workforce Distribution Bubble Chart
+        vegaEmbed('#bubble_chart', 'js/bubble_chart.vg.json').catch(console.error);
+
+        // Hours Worked and Yearly Change Chart
+        vegaEmbed('#dual_y_axis', 'js/dual_y_axis.vg.json').catch(console.error);
     </script>
 
-    <h2>Monthly Unemployment Trends</h2>
-    <div id="multi_line_chart"></div>
-    <div class="description">
-        <p>
-            This line chart shows the trends in unemployment rates from 1966 to the latest available data in 2024. 
-            It tracks changes in unemployment rates across Australia, providing insights into economic cycles and job market dynamics.
-        </p>
-    </div>
-    
-    <script type="text/javascript">
-        var spec = "js/multi_line_chart.vg.json"
-        vegaEmbed('#multi_line_chart', spec).then(function(result) {
-            // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-        }).catch(console.error);
-    </script>
-    
 </body>
-</html>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Australia Labour Force Visualization. Created by Albert Liesman.</p>
+</footer>

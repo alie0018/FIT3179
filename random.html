@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australia Labour Force Visualization</title>
+
+    <!-- External CSS for styling -->
+    <link rel="stylesheet" href="css/layout.css">
+
+    <!-- Vega and Vega-Lite scripts for rendering visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <!-- Inline styling for layout -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .description {
+            text-align: center;
+            margin: 0 auto 40px auto;
+            max-width: 800px;
+            color: #666;
+        }
+
+        /* Container for visualizations */
+        .chart-container {
+            margin: 0 auto;
+            max-width: 1000px;
+            padding: 20px;
+        }
+
+        .chart-container h2 {
+            margin-top: 50px;
+            color: #444;
+        }
+
+        /* Center each chart within the container */
+        #choropleth_map, #line_chart, #dual_y_axis, #bubble_chart, #stacked_bar_chart {
+            margin: 0 auto;
+            width: 100%;
+            height: 500px; /* Adjust height for the charts */
+            max-width: 800px;
+        }
+
+        /* Style for the page's titles */
+        h1 {
+            margin-top: 20px;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        /* Add spacing between sections */
+        .chart-container {
+            padding: 40px 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .chart-container {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            #choropleth_map, #line_chart, #dual_y_axis, #bubble_chart, #stacked_bar_chart {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Australia Labour Force Visualization</h1>
+
+    <div class="description">
+        <p>This interactive web page presents visualizations of trends in the Australian labour force. Explore employment, unemployment, and workforce data through interactive maps and charts below.</p>
+    </div>
+
+    <!-- Employment Trends by State Section -->
+    <div class="chart-container">
+        <h2>Employment Trends by State</h2>
+        <div id="choropleth_map"></div>
+        <div class="description">
+            <p>
+                This map provides a snapshot of the employment levels across various states and territories in Australia as of January 2024. 
+                You can hover over any state to view specific employment numbers and unemployment rates. This visualization highlights the distribution 
+                of employment across the country, helping policymakers and analysts identify regions with stronger or weaker labour markets.
+            </p>
+        </div>
+    </div>
+
+    <!-- Line Chart Section -->
+    <div class="chart-container">
+        <h2>Monthly Hours Worked and Yearly Change</h2>
+        <div id="line_chart"></div>
+        <div class="description">
+            <p>
+                This line chart tracks the total monthly hours worked in Australia from 2014 to 2024. The chart also includes a bar chart showing 
+                the yearly percentage change, which allows for a clearer understanding of the fluctuations in the labour market. This visualization is 
+                useful for understanding long-term trends in workforce productivity and how external factors, such as economic events, affect the total hours worked.
+            </p>
+        </div>
+    </div>
+
+    <!-- Dual Y-Axis Chart Section -->
+    <div class="chart-container">
+        <h2>Employment, Earnings, and Workforce Share by Industry</h2>
+        <div id="dual_y_axis"></div>
+        <div class="description">
+            <p>
+                This dual-axis chart presents a breakdown of employment, earnings, and workforce share by industry. The bar chart represents 
+                the workforce share of different industries, while the line chart represents median weekly earnings. This visualization allows users 
+                to explore how different industries compare in terms of the number of employees and average earnings, providing valuable insights 
+                into the structure of the Australian labour market.
+            </p>
+        </div>
+    </div>
+
+    <!-- Bubble Chart Section -->
+    <div class="chart-container">
+        <h2>Industry Employment Breakdown</h2>
+        <div id="bubble_chart"></div>
+        <div class="description">
+            <p>
+                This bubble chart displays the relationship between the number of employees in various industries, median weekly earnings, and workforce share. 
+                Each bubble represents a different industry, with the size of the bubble corresponding to the number of employees, the x-axis representing earnings, 
+                and the y-axis representing workforce share. This chart helps in understanding which industries have the most significant impact on the labour market.
+            </p>
+        </div>
+    </div>
+
+    <!-- Stacked Bar Chart Section -->
+    <div class="chart-container">
+        <h2>Part-Time and Full-Time Employment by Industry</h2>
+        <div id="stacked_bar_chart"></div>
+        <div class="description">
+            <p>
+                This stacked bar chart compares part-time and full-time employment across different industries in Australia. It helps users understand 
+                which industries are more reliant on part-time workers and which are dominated by full-time roles. By analyzing this data, users can gain insights 
+                into the nature of employment across sectors and how it varies between industries.
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Australia Labour Force Visualization. All rights reserved.</p>
+    </footer>
+
+    <!-- Vega-Lite Visualizations Scripts -->
+    <script type="text/javascript">
+        var mapSpec = "js/choropleth_map.vg.json";
+        vegaEmbed('#choropleth_map', mapSpec).then(function(result) {
+            // Vega view instance for the choropleth map
+        }).catch(console.error);
+
+        var lineChartSpec = "js/line_chart.vg.json";
+        vegaEmbed('#line_chart', lineChartSpec).then(function(result) {
+            // Vega view instance for the line chart
+        }).catch(console.error);
+
+        var dualYAxisSpec = "js/dual_y_axis.vg.json";
+        vegaEmbed('#dual_y_axis', dualYAxisSpec).then(function(result) {
+            // Vega view instance for the dual y-axis chart
+        }).catch(console.error);
+
+        var bubbleChartSpec = "js/bubble_chart.vg.json";
+        vegaEmbed('#bubble_chart', bubbleChartSpec).then(function(result) {
+            // Vega view instance for the bubble chart
+        }).catch(console.error);
+
+        var stackedBarChartSpec = "js/stacked_bar_chart.vg.json";
+        vegaEmbed('#stacked_bar_chart', stackedBarChartSpec).then(function(result) {
+            // Vega view instance for the stacked bar chart
+        }).catch(console.error);
+    </script>
+</body>
+</html>

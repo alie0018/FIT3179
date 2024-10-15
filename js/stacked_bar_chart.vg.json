@@ -1,0 +1,45 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Industry Comparison: Female vs Male Share and Median Age (Normalized)",
+  "data": {
+    "url": "data/cleaned/Industry_data.csv",  
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"calculate": "datum['Female Share (%)']", "as": "Female Share"},
+    {"calculate": "100 - datum['Female Share (%)']", "as": "Male Share"},
+    {
+      "fold": ["Female Share", "Male Share"],
+      "as": ["Gender", "Share"]
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Share",
+      "type": "quantitative",
+      "stack": "normalize",
+      "title": "Percentage Share (%)"
+    },
+    "y": {
+      "field": "Industry",
+      "type": "nominal",
+      "title": "Industry",
+      "sort": "-x"
+    },
+    "color": {
+      "field": "Gender",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Female Share", "Male Share"],
+        "range": ["#FF69B4", "#1f77b4"]
+      },
+      "title": "Gender"
+    },
+    "tooltip": [
+      {"field": "Industry", "type": "nominal", "title": "Industry"},
+      {"field": "Share", "type": "quantitative", "title": "Share (%)"},
+      {"field": "Median Age", "type": "quantitative", "title": "Median Age"}
+    ]
+  }
+}

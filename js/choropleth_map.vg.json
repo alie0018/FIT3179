@@ -16,21 +16,27 @@
       "lookup": "properties.STATE_NAME",
       "from": {
         "data": {
-          "url": "data/cleaned/January_2024.csv"
+          "url": "data/cleaned/January_2024_employed.csv"
         },
         "key": "State",
-        "fields": ["Employed_People"]
+        "fields": [
+          "Employed people",
+          "Employment to population ratio",
+          "Unemployment rate",
+          "Underemployment rate",
+          "Participation rate"
+        ]
       }
     },
     {
-      "calculate": "isValid(datum.Employed_People) ? +datum.Employed_People : 0", 
-      "as": "Employed_People"
+      "calculate": "isValid(datum['Employed people']) ? +datum['Employed people'] : 0", 
+      "as": "Employed people"
     }
   ],
   "mark": {"type": "geoshape"},
   "encoding": {
     "color": {
-      "field": "Employed_People",
+      "field": "Employed people",
       "type": "quantitative",
       "scale": {"type": "linear"},
       "legend": {
@@ -39,7 +45,11 @@
     },
     "tooltip": [
       {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
-      {"field": "Employed_People", "type": "quantitative", "title": "Employed People"}
+      {"field": "Employed people", "type": "quantitative", "title": "Employed People"},
+      {"field": "Employment to population ratio", "type": "quantitative", "title": "Employment to Population Ratio (%)"},
+      {"field": "Unemployment rate", "type": "quantitative", "title": "Unemployment Rate (%)"},
+      {"field": "Underemployment rate", "type": "quantitative", "title": "Underemployment Rate (%)"},
+      {"field": "Participation rate", "type": "quantitative", "title": "Participation Rate (%)"}
     ]
   }
 }

@@ -1,12 +1,138 @@
-html,
-body { 
-  font-family: Arial, sans-serif; 
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
 }
 
-.description { 
-  margin-top: 20px; font-size: 16px; 
+/* Header Styling */
+.header {
+  background-color: #003366;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+  border-bottom: 4px solid #FFCC00;
 }
 
-h2 { 
-  color: #333; 
+.header h1 {
+  font-size: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  font-weight: bold;
+  color: white;
+}
+
+.header h2 {
+  font-size: 20px;
+  font-weight: normal;
+  margin-top: 10px;
+  color: white;
+}
+
+/* Container and General Layout */
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  color: #2c3e50;
+  font-weight: 700;
+  text-align: center;
+}
+
+p {
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.section {
+  margin: 50px 0;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Chart Styling */
+.chart {
+  text-align: center;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center; /* Horizontally centers the chart */
+  align-items: center; /* Vertically centers the chart */
+  width: 100%;
+  height: auto; /* Ensures the chart takes up full width */
+}
+
+.description {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.annotation {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-left: 3px solid #FFCC00;
+  margin-top: -10px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+
+  p {
+    margin: 0;
+    color: #fff;
+  }
+}
+
+/* Flex container for chart and description */
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the chart and text */
+  flex-direction: column; /* Stack chart and text vertically */
+}
+
+@media (min-width: 801px) {
+  /* On larger screens, revert to the flex layout for chart and description */
+  .flex-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .chart {
+    flex: 1;
+    padding-right: 20px;
+    /* Adds spacing between the chart and text */
+  }
+
+  .description {
+    flex: 1;
+    padding-left: 20px; /* Adds spacing between the text and chart */
+  }
+}
+
+@media (max-width: 800px) {
+  /* Stacks the chart and description vertically on smaller screens */
+  .flex-container {
+    flex-direction: column;
+  }
+
+  .chart, .description {
+    width: 100%;
+    padding: 0; /* Ensures full width on smaller screens */
+  }
 }

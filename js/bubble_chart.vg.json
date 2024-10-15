@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Interactive bubble chart showing Employment size, Earnings, and Workforce Share by Industry.",
+  "width": 800,
+  "height": 600,
+  "data": {
+    "url": "data/cleaned/Industry_data.csv"
+  },
+  "mark": {
+    "type": "circle",
+    "stroke": "black",
+    "strokeWidth": 1,
+    "opacity": 0.7
+  },
+  "encoding": {
+    "x": {
+      "field": "Median Weekly Earnings",
+      "type": "quantitative",
+      "title": "Median Weekly Earnings ($)",
+      "scale": {"zero": false}
+    },
+    "y": {
+      "field": "Workforce Share (%)",
+      "type": "quantitative",
+      "title": "Workforce Share (%)",
+      "scale": {"zero": false}
+    },
+    "size": {
+      "field": "Employed",
+      "type": "quantitative",
+      "title": "Number of Employed People",
+      "scale": {"range": [100, 1000]}
+    },
+    "color": {
+      "field": "Industry",
+      "type": "nominal",
+      "title": "Industry",
+      "legend": {"title": "Industry"}
+    },
+    "tooltip": [
+      {"field": "Industry", "type": "nominal", "title": "Industry"},
+      {"field": "Employed", "type": "quantitative", "title": "Employed"},
+      {"field": "Median Weekly Earnings", "type": "quantitative", "title": "Earnings ($)"},
+      {"field": "Workforce Share (%)", "type": "quantitative", "title": "Workforce Share (%)"},
+      {"field": "Female Share (%)", "type": "quantitative", "title": "Female Share (%)"}
+    ]
+  },
+  "selection": {
+    "highlight": {
+      "type": "single",
+      "on": "mouseover",
+      "empty": "none",
+      "clear": "mouseout"
+    },
+    "selectIndustry": {
+      "type": "multi",
+      "fields": ["Industry"],
+      "bind": "legend"
+    }
+  },
+  "transform": [
+    {
+      "filter": {
+        "selection": "selectIndustry"
+      }
+    }
+  ],
+  "config": {
+    "scale": {
+      "zoom": true,
+      "pan": true
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  }
+}

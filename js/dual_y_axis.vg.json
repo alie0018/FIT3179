@@ -1,0 +1,80 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Hours Worked and Yearly Change",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "data/cleaned/Monthly_hours_worked.csv",  
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "parseFloat(datum['Hours worked'])", 
+      "as": "Hours_Worked"
+    },
+    {
+      "calculate": "parseFloat(datum['Yearly change'])", 
+      "as": "Yearly_Change"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "opacity": 0.5,
+        "color": "#FFCC00",
+        "size": 10  
+      },
+      "encoding": {
+        "x": {
+          "field": "Date", 
+          "type": "temporal", 
+          "title": "Date",
+          "axis": {"format": "%b"}  
+        },
+        "y": {
+          "field": "Yearly_Change",
+          "type": "quantitative",
+          "title": "Yearly Change (%)",
+          "axis": {"titleColor": "#FFCC00"}
+        },
+        "tooltip": [
+          {"field": "Date", "type": "temporal", "title": "Date"},
+          {"field": "Yearly_Change", "type": "quantitative", "title": "Yearly Change (%)"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "#1f77b4",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "Date", 
+          "type": "temporal", 
+          "title": "Date",
+          "axis": {"format": "%b"},
+          "scale": {"padding": 0}  
+        },
+        "y": {
+          "field": "Hours_Worked",
+          "type": "quantitative",
+          "title": "Hours Worked",
+          "axis": {"titleColor": "#1f77b4"},
+          "scale": {"domain": [1500, 2000]}
+        },
+        "tooltip": [
+          {"field": "Date", "type": "temporal", "title": "Date"},
+          {"field": "Hours_Worked", "type": "quantitative", "title": "Hours Worked"}
+        ]
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {"y": "independent"}
+  }
+}
